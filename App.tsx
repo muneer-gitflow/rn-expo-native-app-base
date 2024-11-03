@@ -25,7 +25,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import Constants from 'expo-constants';
+// import Constants from 'expo-constants';
 import Scan from './screens/scan';
 
 type SectionProps = PropsWithChildren<{
@@ -62,7 +62,7 @@ function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   useEffect(() => {
-    console.log(Constants.systemFonts);
+    // console.log(Constants.systemFonts);
   }, []);
 
   const backgroundStyle = {

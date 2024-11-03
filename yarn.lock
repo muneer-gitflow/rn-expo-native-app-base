@@ -3682,6 +3682,7 @@ __metadata:
     prettier: 2.8.8
     react: 18.3.1
     react-native: 0.75.2
+    react-native-vision-camera: ^4.6.0
     react-test-renderer: 18.3.1
     typescript: 5.0.4
   languageName: unknown
@@ -9850,6 +9851,26 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
+  languageName: node
+  linkType: hard
+
+"react-native-vision-camera@npm:^4.6.0":
+  version: 4.6.0
+  resolution: "react-native-vision-camera@npm:4.6.0"
+  peerDependencies:
+    "@shopify/react-native-skia": "*"
+    react: "*"
+    react-native: "*"
+    react-native-reanimated: "*"
+    react-native-worklets-core: "*"
+  peerDependenciesMeta:
+    "@shopify/react-native-skia":
+      optional: true
+    react-native-reanimated:
+      optional: true
+    react-native-worklets-core:
+      optional: true
+  checksum: 79088006a2bf72e12532188bcfccbadab72aefb8413dbeadd85e4e4efebf565ccc6cb797d028286fcc17d5bb13b1cc06d935bad438b7431adf8bb3dc3ab6455b
   languageName: node
   linkType: hard
 

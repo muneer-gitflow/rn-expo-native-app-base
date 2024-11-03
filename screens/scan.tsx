@@ -1,83 +1,41 @@
-// import {CameraView, CameraType, useCameraPermissions} from 'expo-camera';
-// import {useState} from 'react';
-// import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {View, Text, Platform, SafeAreaView} from 'react-native';
+import NativeDevSettings from 'react-native/Libraries/NativeModules/specs/NativeDevSettings';
 
-// export default function App() {
-//   const [facing, setFacing] = useState<CameraType>('back');
-//   const [permission, requestPermission] = useCameraPermissions();
+interface Todo {
+  id: number;
+  title: string;
+}
 
-//   if (!permission) {
-//     // Camera permissions are still loading.
-//     return <View />;
-//   }
+export default function VisionCameraTest() {
+  // const {hasPermission, requestPermission} = useCameraPermission();
+  const [todos, setTodos] = useState<Todo[]>([]);
 
-//   if (!permission.granted) {
-//     // Camera permissions are not granted yet.
-//     return (
-//       <View style={styles.container}>
-//         <Text style={styles.message}>
-//           We need your permission to show the camera
-//         </Text>
-//         <Button onPress={requestPermission} title="grant permission" />
-//       </View>
-//     );
-//   }
+  const getTodos10 = useCallback(() => {
+    fetch(`https://jsonplaceholder.typicode.com/todos?_limit=10`)
+      .then(response => response.json())
+      .then(json => setTodos(json));
+  }, []);
 
-//   function toggleCameraFacing() {
-//     setFacing(current => (current === 'back' ? 'front' : 'back'));
-//   }
+  useEffect(() => {
+    if (__DEV__ && Platform.OS === 'ios') {
+      NativeDevSettings.setIsDebuggingRemotely(true);
+    }
+    // if (!hasPermission) {
+    //   // requestPermission();
+    // }
 
-//   return (
-//     <View style={styles.container}>
-//       <CameraView style={styles.camera} facing={facing}>
-//         <View style={styles.buttonContainer}>
-//           <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-//             <Text style={styles.text}>Flip Camera</Text>
-//           </TouchableOpacity>
-//         </View>
-//       </CameraView>
-//     </View>
-//   );
-// }
+    getTodos10();
+  }, [getTodos10]);
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//   },
-//   message: {
-//     textAlign: 'center',
-//     paddingBottom: 10,
-//   },
-//   camera: {
-//     flex: 1,
-//   },
-//   buttonContainer: {
-//     flex: 1,
-//     flexDirection: 'row',
-//     backgroundColor: 'transparent',
-//     margin: 64,
-//   },
-//   button: {
-//     flex: 1,
-//     alignSelf: 'flex-end',
-//     alignItems: 'center',
-//   },
-//   text: {
-//     fontSize: 24,
-//     fontWeight: 'bold',
-//     color: 'white',
-//   },
-// });
-
-
-import React from 'react';
-import { View, Text } from 'react-native';
-
-export default function Scan() {
   return (
-    <View>
-      <Text>Scan</Text>
-    </View>
+    <SafeAreaView style={{flex: 1}}>
+      <View style={{flex: 1, padding: 16}}>
+        <Text>VisionCameraTest</Text>
+        {todos.map(todo => (
+          <Text key={todo.id}>{todo.title}</Text>
+        ))}
+      </View>
+    </SafeAreaView>
   );
 }
