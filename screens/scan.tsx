@@ -1,6 +1,8 @@
+import {TamaguiProvider, YStack} from 'tamagui';
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, Text, Platform, SafeAreaView} from 'react-native';
+import {Text, Platform, SafeAreaView, useColorScheme} from 'react-native';
 import NativeDevSettings from 'react-native/Libraries/NativeModules/specs/NativeDevSettings';
+import config from '../tamagui.config';
 
 interface Todo {
   id: number;
@@ -8,6 +10,7 @@ interface Todo {
 }
 
 export default function VisionCameraTest() {
+  const colorScheme = useColorScheme();
   // const {hasPermission, requestPermission} = useCameraPermission();
   const [todos, setTodos] = useState<Todo[]>([]);
 
@@ -29,13 +32,17 @@ export default function VisionCameraTest() {
   }, [getTodos10]);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1, padding: 16}}>
-        <Text>VisionCameraTest</Text>
-        {todos.map(todo => (
-          <Text key={todo.id}>{todo.title}</Text>
-        ))}
-      </View>
-    </SafeAreaView>
+    <TamaguiProvider
+      config={config}
+      defaultTheme={colorScheme === 'dark' ? 'dark' : 'light'}>
+      <SafeAreaView style={{flex: 1}}>
+        <YStack backgroundColor="$background" flex={1} padding={16}>
+          <Text>VisionCameraTest</Text>
+          {todos.map(todo => (
+            <Text key={todo.id}>{todo.title}</Text>
+          ))}
+        </YStack>
+      </SafeAreaView>
+    </TamaguiProvider>
   );
 }
